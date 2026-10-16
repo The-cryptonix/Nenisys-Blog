@@ -1,0 +1,97 @@
+/* Brand tokens copied from nenisys.shop (Nenisys-Site/index.html). Carbon surfaces, lime #c6ff34 used sparingly. Dark only. */
+:root{--bg:#0e0e0e;--card:#171717;--card2:#202020;--text:#f2f2ee;--muted:#a3a39f;--line:#2c2c2c;--ctl:#737373;--o:#c6ff34;--o2:#d6ff66;--on-o:#121400;--glow:198,255,52;--t1:#171717;--cream:#faf9f5;--ink:#141413;--err:#ffb4a8;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:dark}
+.tone-1{background:var(--t1);--card:#212121;--card2:#2a2a2a;--line:#303030}
+
+*,*:before,*:after{box-sizing:border-box}
+*{margin:0}
+html{scroll-behavior:smooth;scroll-padding-top:88px;background:var(--bg);-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--text);font-family:'Poppins',system-ui,-apple-system,"Segoe UI",Arial,sans-serif;line-height:1.65;overflow-x:clip;-webkit-font-smoothing:antialiased}
+#root{display:flex;flex-direction:column;min-height:100vh;min-height:100svh}
+main{flex:1;overflow-x:clip}
+main:focus{outline:none}
+img,svg,video{max-width:100%}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:absolute;left:12px;top:8px;transform:translateY(-300%);background:var(--o);color:var(--on-o);padding:8px 16px;border-radius:999px;z-index:50}
+.skip:focus{transform:none}
+:focus-visible{outline:2px solid var(--o);outline-offset:3px;border-radius:8px}
+
+/* Header: the site's pill nav with the N chip */
+header{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:20;padding:12px 0}
+header .wrap{position:relative}
+.nav{display:flex;align-items:center;justify-content:space-between;height:52px;padding:0 9px;border:1px solid var(--line);border-radius:999px;background:rgba(14,14,14,.7);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);transition:background .3s,box-shadow .3s}
+header.scrolled .nav{background:rgba(14,14,14,.86);box-shadow:0 8px 30px rgba(0,0,0,.4)}
+.brand{display:flex;align-items:center;justify-content:center;flex:none;width:36px;height:36px;border-radius:50%;background:var(--cream);color:var(--ink);text-decoration:none}
+.brand:focus-visible{border-radius:50%}
+.brand .bm{height:17px;width:15.5px}
+.links{display:flex;align-items:center;gap:6px}
+.links a.l{color:var(--muted);text-decoration:none;font-size:14px;padding:7px 12px;border-radius:999px;transition:.2s}
+.links a.l:hover{color:var(--text)}
+.links a.l.active{color:var(--text);background:rgba(255,255,255,.08)}
+.burger{display:none;width:38px;height:38px;border-radius:50%;border:0;background:var(--card2);cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px}
+.burger span{width:16px;height:2px;background:var(--text);border-radius:2px;transition:transform .25s}
+.burger[aria-expanded="true"] span:first-child{transform:translateY(3.5px) rotate(45deg)}
+.burger[aria-expanded="true"] span:last-child{transform:translateY(-3.5px) rotate(-45deg)}
+@media(max-width:760px){
+.burger{display:flex}
+.links{display:none;position:absolute;top:62px;left:18px;right:18px;flex-direction:column;align-items:stretch;gap:2px;background:rgba(23,23,23,.98);border:1px solid var(--line);border-radius:22px;padding:12px;box-shadow:0 20px 50px rgba(0,0,0,.55)}
+.links.open{display:flex;animation:rise .25s ease both}
+.links a.l{padding:13px 16px;font-size:15px}
+.links .btn{margin-top:6px}
+}
+
+/* Buttons: compact pills, only .p is lime */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:0 22px;min-height:44px;border-radius:999px;font-family:inherit;font-weight:600;font-size:14px;line-height:1;text-decoration:none;white-space:nowrap;transition:transform .2s,background .2s,border-color .2s,color .2s;border:1px solid transparent;cursor:pointer}
+.btn.p{background:var(--o);color:var(--on-o)}
+.btn.p:hover{background:var(--o2)}
+.btn.p:active{transform:translateY(1px)}
+.btn.s{background:transparent;color:var(--text);border-color:var(--ctl)}
+.btn.s:hover{background:rgba(255,255,255,.06);border-color:var(--text)}
+.btn.sm{min-height:36px;padding:0 16px;font-size:13px}
+.btn[disabled]{opacity:.65;cursor:default}
+.tag{position:relative;display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);border:1px solid var(--line);background:var(--card);padding:6px 14px;border-radius:999px}
+.tag i{width:6px;height:6px;border-radius:50%;background:var(--o)}
+.eyebrow{color:var(--muted);font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
+
+/* Footer */
+footer{background:var(--bg);border-top:1px solid var(--line);padding:28px 0;color:var(--muted);font-size:13px}
+footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.flinks{display:flex;gap:6px 18px;flex-wrap:wrap}
+.flinks a{color:var(--muted);text-decoration:none}
+.flinks a:hover{color:var(--text);text-decoration:underline}
+@media(max-width:600px){footer .wrap{flex-direction:column;text-align:center}.flinks{justify-content:center}}
+
+/* Motion: the site's rise-in and scroll reveal */
+@keyframes rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+.js .reveal{opacity:0;transform:translateY(32px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1);transition-delay:var(--d,0s)}
+.js .reveal.in{opacity:1;transform:none}
+.d1{--d:.08s}.d2{--d:.16s}
+
+/* The N mark: draw-in once (header chip) or loop (spinner), using the site's loader timing */
+.bm{display:block}
+.bm-draw .bm-dot{transform-box:fill-box;transform-origin:center;animation:bm-dot .5s .05s both}
+.bm-draw .bm-s1,.bm-draw .bm-s2,.bm-loop .bm-s1,.bm-loop .bm-s2{stroke-dasharray:1}
+.bm-draw .bm-s1{animation:bm-draw .45s .25s cubic-bezier(.6,0,.2,1) both}
+.bm-draw .bm-s2{animation:bm-draw .6s .5s cubic-bezier(.6,0,.2,1) both}
+@keyframes bm-dot{0%{transform:scale(0)}60%{transform:scale(1.25)}100%{transform:scale(1)}}
+@keyframes bm-draw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+.bm-loop .bm-dot{transform-box:fill-box;transform-origin:center;animation:ld-dot 2s infinite}
+.bm-loop .bm-s1{animation:ld-s1 2s infinite}
+.bm-loop .bm-s2{animation:ld-s2 2s infinite}
+@keyframes ld-dot{0%{transform:scale(0);animation-timing-function:ease-out}15%{transform:scale(1.25)}25%,75%{transform:scale(1);animation-timing-function:ease-in}90%,100%{transform:scale(0)}}
+@keyframes ld-s1{0%,10%{stroke-dashoffset:1;animation-timing-function:cubic-bezier(.6,0,.2,1)}35%,70%{stroke-dashoffset:0;animation-timing-function:cubic-bezier(.6,0,.2,1)}95%,100%{stroke-dashoffset:-1}}
+@keyframes ld-s2{0%,25%{stroke-dashoffset:1;animation-timing-function:cubic-bezier(.6,0,.2,1)}60%,75%{stroke-dashoffset:0;animation-timing-function:cubic-bezier(.6,0,.2,1)}100%{stroke-dashoffset:-1}}
+
+/* Loading skeletons */
+.sk{border-radius:12px;background:linear-gradient(100deg,var(--card) 30%,var(--card2) 50%,var(--card) 70%);background-size:200% 100%;animation:sk 1.4s ease-in-out infinite}
+@keyframes sk{to{background-position:-200% 0}}
+
+/* Contact-style glow card (a lamp on the ceiling, shining down) */
+.cta{position:relative;overflow:hidden;isolation:isolate;text-align:center;background:radial-gradient(ellipse min(95vw,640px) 100% at 50% 0%,rgba(var(--glow),.44) 0%,rgba(var(--glow),.27) 30%,rgba(var(--glow),.13) 62%,rgba(var(--glow),0) 100%);border-radius:32px;padding:72px 28px 84px}
+.cta:after{content:"";position:absolute;left:18%;right:18%;top:0;height:1px;background:linear-gradient(90deg,rgba(var(--glow),0),rgba(var(--glow),.9),rgba(var(--glow),0));pointer-events:none}
+.cta .eyebrow{color:#e6f0f4}
+.cta h2{font-size:clamp(1.6rem,4.2vw,2.3rem);letter-spacing:-.02em;font-weight:700;max-width:560px;margin:0 auto 14px}
+.cta p{color:#c9d8df;max-width:420px;margin:0 auto 32px}
+@media(max-width:600px){.cta{padding:56px 22px 72px;border-radius:26px}}
+
+@media (prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.js .reveal{opacity:1;transform:none}}
