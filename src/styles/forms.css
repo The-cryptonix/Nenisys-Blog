@@ -1,0 +1,14 @@
+/* Newsletter signup inside the closing glow card */
+#subscribe{scroll-margin-top:96px}
+.sub-form{display:flex;flex-direction:column;gap:12px;max-width:420px;margin:0 auto;text-align:left}
+.sub-form .field{display:block;width:100%;min-height:46px;padding:0 18px;border-radius:999px;border:1px solid var(--ctl);background:rgba(14,14,14,.6);color:var(--text);font:inherit;font-size:15px}
+.sub-form .field::placeholder{color:var(--muted)}
+.sub-form .field:focus{border-color:var(--o)}
+.sub-form .consent{display:flex;gap:10px;align-items:flex-start;margin:2px 2px 0;color:#c9d8df;font-size:.85rem;line-height:1.5;cursor:pointer}
+.sub-form .consent input{flex:none;width:18px;height:18px;margin-top:2px;accent-color:var(--o);cursor:pointer}
+.sub-form .consent a{color:var(--text);text-underline-offset:3px;text-decoration-color:var(--ctl)}
+.sub-form .consent a:hover{text-decoration-color:var(--o)}
+.sub-form .fmsg{min-height:1.4em;margin:0 2px;text-align:left}
+.sub-form .btn{width:100%}
+.sub-done h3{font-size:1.2rem;font-weight:700;margin-bottom:8px}
+.sub-done p{margin-bottom:0}

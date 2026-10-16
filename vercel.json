@@ -9,6 +9,7 @@
     { "source": "/blog/assets/:path*", "destination": "/assets/:path*" },
     { "source": "/sitemap-blog.xml", "destination": "/api/render?sitemap=1" },
     { "source": "/blog", "destination": "/api/render" },
+    { "source": "/blog/", "destination": "/api/render" },
     { "source": "/blog/:slug", "destination": "/api/render?slug=:slug" }
   ],
   "headers": [
