@@ -2,10 +2,14 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "vite",
   "outputDirectory": "dist",
+  "functions": {
+    "api/render.ts": { "includeFiles": "dist/index.html" }
+  },
   "rewrites": [
     { "source": "/blog/assets/:path*", "destination": "/assets/:path*" },
-    { "source": "/blog", "destination": "/index.html" },
-    { "source": "/blog/:path*", "destination": "/index.html" }
+    { "source": "/sitemap-blog.xml", "destination": "/api/render?sitemap=1" },
+    { "source": "/blog", "destination": "/api/render" },
+    { "source": "/blog/:slug", "destination": "/api/render?slug=:slug" }
   ],
   "headers": [
     {
