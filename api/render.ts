@@ -12,15 +12,17 @@ const OG_DEFAULT = `${SITE_URL}/og-image.png`;
 const SLUG = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const CACHE = 'public, s-maxage=60, stale-while-revalidate=300';
 
-let shell: string | null = null;
+let shell: string | undefined;
 async function getShell(origin: string): Promise<string> {
   if (shell) return shell;
+  let html: string;
   try {
-    shell = await readFile(join(process.cwd(), 'dist', 'index.html'), 'utf8');
+    html = await readFile(join(process.cwd(), 'dist', 'index.html'), 'utf8');
   } catch {
-    shell = await (await fetch(`${origin}/index.html`)).text();
+    html = await (await fetch(`${origin}/index.html`)).text();
   }
-  return shell;
+  shell = html;
+  return html;
 }
 
 const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
