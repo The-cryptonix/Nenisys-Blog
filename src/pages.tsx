@@ -1,112 +1,20 @@
-import { useCallback, useEffect, useRef, useState, type FormEvent } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Link } from 'wouter';
 import { ApiError, fetchPost, fetchPosts, peekList, peekPost, rememberList, toApiError, type Post, type PostSummary } from './api';
 import { BlockRenderer } from './blocks';
 import { BrandMark, CardSkeleton, Cover, ErrorBox, FeaturedCard, Meta, PostCard, Seo, useReveal } from './components';
-import { API_URL, PAGE_SIZE, SITE_URL } from './lib';
+import { PAGE_SIZE, SITE_URL } from './lib';
+import { SubscribeButton } from './subscribe';
 import './styles/forms.css';
-
-/* ---------------- newsletter signup ---------------- */
-// Same double opt-in endpoint the main site's Subscribe modal uses: the backend emails a confirmation link.
-type SubResult = 'ok' | 'invalid' | 'limited' | 'unavailable';
-
-async function subscribe(email: string): Promise<SubResult> {
-  const ctl = new AbortController();
-  const timer = setTimeout(() => ctl.abort(), 15_000);
-  try {
-    const res = await fetch(`${API_URL}/newsletter/subscribe`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-      body: JSON.stringify({ email, consent: true, source: 'site' }),
-      credentials: 'omit',
-      signal: ctl.signal,
-    });
-    if (res.status === 202) return 'ok';
-    if (res.status === 429) return 'limited';
-    if (res.status === 400) return 'invalid';
-    return 'unavailable';
-  } catch {
-    return 'unavailable';
-  } finally {
-    clearTimeout(timer);
-  }
-}
-
-const SUB_ERRORS: Record<Exclude<SubResult, 'ok'>, string> = {
-  invalid: 'Please check your email address and try again.',
-  limited: 'Too many tries. Please wait a while and try again.',
-  unavailable: 'Signup is temporarily unavailable. Please try again later.',
-};
-
-function SubscribeForm() {
-  const [email, setEmail] = useState('');
-  const [consent, setConsent] = useState(false);
-  const [phase, setPhase] = useState<'idle' | 'busy' | 'done'>('idle');
-  const [error, setError] = useState('');
-
-  const onSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    if (phase === 'busy') return;
-    const v = email.trim();
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) || v.length > 320) return setError('Please enter a valid email address.');
-    if (!consent) return setError('Please tick the box to agree to receive emails.');
-    setError('');
-    setPhase('busy');
-    const result = await subscribe(v);
-    if (result === 'ok') {
-      setPhase('done');
-    } else {
-      setError(SUB_ERRORS[result]);
-      setPhase('idle');
-    }
-  };
-
-  if (phase === 'done') {
-    return (
-      <div className='sub-done' role='status'>
-        <h3>Check your email.</h3>
-        <p>Confirm your signup with the link we just sent (look in spam too).</p>
-      </div>
-    );
-  }
-
-  return (
-    <form className='sub-form' onSubmit={onSubmit} noValidate>
-      <label className='sr' htmlFor='sub-email'>Email address</label>
-      <input
-        className='field'
-        id='sub-email'
-        name='email'
-        type='email'
-        inputMode='email'
-        autoComplete='email'
-        placeholder='you@example.com'
-        maxLength={320}
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        required
-      />
-      <label className='consent'>
-        <input type='checkbox' checked={consent} onChange={(e) => setConsent(e.target.checked)} />
-        <span>
-          I agree to receive the Nenisys newsletter by email and can unsubscribe at any time. See the{' '}
-          <a href='https://nenisys.shop/#privacy' target='_blank' rel='noopener noreferrer'>Privacy Policy</a>.
-        </span>
-      </label>
-      <div className='fmsg' role='alert'>{error}</div>
-      <button className='btn p' type='submit' disabled={phase === 'busy'}>{phase === 'busy' ? 'Subscribing…' : 'Subscribe'}</button>
-    </form>
-  );
-}
 
 function ClosingCard() {
   const [ref, seen] = useReveal<HTMLElement>();
   return (
-    <section ref={ref} id='subscribe' className={`cta reveal${seen ? ' in' : ''}`} aria-labelledby='cta-t'>
+    <section ref={ref} className={`cta reveal${seen ? ' in' : ''}`} aria-labelledby='cta-t'>
       <div className='eyebrow'>Newsletter</div>
       <h2 id='cta-t'>Never miss a post.</h2>
       <p>Get launch updates and new articles by email. No spam.</p>
-      <SubscribeForm />
+      <SubscribeButton />
     </section>
   );
 }
@@ -193,7 +101,7 @@ export function BlogIndex() {
               <BrandMark className='state-mark' />
               <h2>No posts yet</h2>
               <p>The first article is on its way. Subscribe and we will email you when it lands.</p>
-              <div className='state-actions'><a className='btn p' href='#subscribe'>Subscribe</a></div>
+              <div className='state-actions'><SubscribeButton /></div>
             </div>
           )}
           {first && (

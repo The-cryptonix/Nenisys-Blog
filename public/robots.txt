@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://nenisys.shop/sitemap-blog.xml

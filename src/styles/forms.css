@@ -1,14 +1,57 @@
-/* Newsletter signup inside the closing glow card */
-#subscribe{scroll-margin-top:96px}
-.sub-form{display:flex;flex-direction:column;gap:12px;max-width:420px;margin:0 auto;text-align:left}
-.sub-form .field{display:block;width:100%;min-height:46px;padding:0 18px;border-radius:999px;border:1px solid var(--ctl);background:rgba(14,14,14,.6);color:var(--text);font:inherit;font-size:15px}
-.sub-form .field::placeholder{color:var(--muted)}
-.sub-form .field:focus{border-color:var(--o)}
-.sub-form .consent{display:flex;gap:10px;align-items:flex-start;margin:2px 2px 0;color:#c9d8df;font-size:.85rem;line-height:1.5;cursor:pointer}
-.sub-form .consent input{flex:none;width:18px;height:18px;margin-top:2px;accent-color:var(--o);cursor:pointer}
-.sub-form .consent a{color:var(--text);text-underline-offset:3px;text-decoration-color:var(--ctl)}
-.sub-form .consent a:hover{text-decoration-color:var(--o)}
-.sub-form .fmsg{min-height:1.4em;margin:0 2px;text-align:left}
-.sub-form .btn{width:100%}
-.sub-done h3{font-size:1.2rem;font-weight:700;margin-bottom:8px}
-.sub-done p{margin-bottom:0}
+/* Newsletter signup modal (mirrors the Subscribe modal on nenisys.shop). No inline styles anywhere: the blog's CSP blocks them. */
+html.modal-open{overflow:hidden}
+.cta .btn{min-width:200px}
+.modal{position:fixed;inset:0;z-index:60;display:grid;place-items:center;padding:18px;padding-top:calc(18px + env(safe-area-inset-top,0px));padding-bottom:calc(18px + env(safe-area-inset-bottom,0px))}
+.modal-bg{position:absolute;inset:0;background:rgba(14,14,14,.72);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);animation:fadein .25s ease both}
+@keyframes fadein{from{opacity:0}to{opacity:1}}
+.modal-card{position:relative;width:min(440px,100%);max-height:100%;overflow:auto;background:var(--card);border:1px solid var(--line);border-radius:24px;padding:32px 28px 28px;box-shadow:0 24px 60px rgba(0,0,0,.55);animation:rise .35s cubic-bezier(.2,.7,.2,1) both}
+.modal-card h2{font-size:1.5rem;font-weight:700;letter-spacing:-.02em;margin-bottom:8px;padding-right:36px}
+.modal-card .sub-p{color:var(--muted);font-size:.95rem;margin-bottom:20px}
+.modal-card .btn{width:100%}
+.modal-x{position:absolute;top:14px;right:14px;width:36px;height:36px;border-radius:50%;border:0;background:var(--card2);color:var(--text);cursor:pointer;display:grid;place-items:center;transition:background .2s}
+.modal-x:hover{background:#2a2a2a}
+.modal-x svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round}
+.field{display:block;width:100%;min-height:46px;padding:0 18px;border-radius:999px;border:1px solid var(--ctl);background:var(--card2);color:var(--text);font:inherit;font-size:15px}
+.field::placeholder{color:var(--muted)}
+.field:focus{border-color:var(--o)}
+.consent{display:flex;gap:10px;align-items:flex-start;margin:14px 2px 0;color:var(--muted);font-size:.85rem;line-height:1.5;cursor:pointer}
+.consent input{flex:none;width:18px;height:18px;margin-top:2px;accent-color:var(--o);cursor:pointer}
+.consent a{color:var(--text);text-underline-offset:3px;text-decoration-color:var(--ctl)}
+.consent a:hover{text-decoration-color:var(--o)}
+.modal-card .fmsg{min-height:1.4em;margin:12px 2px 6px}
+.sub-done{text-align:center}
+.sub-done h2{padding-right:0}
+.sub-done h2:focus{outline:none}
+.sub-done .sub-p{margin:0 auto 22px}
+
+/* Success check: a green ring draws, the tick draws, a pop and one confetti burst play once. Tap the check to replay. */
+.ok{position:relative;display:block;width:72px;height:72px;margin:0 auto 14px;padding:0;border:0;border-radius:50%;background:none;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.ok svg{display:block;width:72px;height:72px;overflow:visible}
+.ok-c{fill:rgba(46,204,113,.14);stroke:#2ecc71;stroke-width:3;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:0;transform:rotate(-90deg);transform-origin:50% 50%;transform-box:fill-box}
+.ok-t{fill:none;stroke:#2ecc71;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:0}
+.ok:before{content:"";position:absolute;inset:4px;border-radius:50%;border:2px solid #2ecc71;opacity:0;pointer-events:none}
+.cf{position:absolute;left:50%;top:50%;width:6px;height:11px;margin:-5px 0 0 -3px;border-radius:2px;background:var(--c);opacity:0;pointer-events:none}
+.cf:nth-of-type(1){--a:0deg;--d:52px;--s:200deg;--c:#c6ff34}
+.cf:nth-of-type(2){--a:26deg;--d:42px;--s:-220deg;--c:#2ecc71;--dl:.66s}
+.cf:nth-of-type(3){--a:51deg;--d:54px;--s:180deg;--c:#faf9f5}
+.cf:nth-of-type(4){--a:77deg;--d:44px;--s:-160deg;--c:#a6f08a;--dl:.68s}
+.cf:nth-of-type(5){--a:103deg;--d:52px;--s:240deg;--c:#c6ff34}
+.cf:nth-of-type(6){--a:129deg;--d:40px;--s:-200deg;--c:#2ecc71;--dl:.64s}
+.cf:nth-of-type(7){--a:154deg;--d:54px;--s:170deg;--c:#faf9f5}
+.cf:nth-of-type(8){--a:180deg;--d:44px;--s:-240deg;--c:#a6f08a;--dl:.7s}
+.cf:nth-of-type(9){--a:206deg;--d:52px;--s:210deg;--c:#c6ff34}
+.cf:nth-of-type(10){--a:231deg;--d:42px;--s:-180deg;--c:#2ecc71;--dl:.66s}
+.cf:nth-of-type(11){--a:257deg;--d:54px;--s:230deg;--c:#faf9f5}
+.cf:nth-of-type(12){--a:283deg;--d:44px;--s:-170deg;--c:#a6f08a;--dl:.68s}
+.cf:nth-of-type(13){--a:309deg;--d:52px;--s:190deg;--c:#c6ff34}
+.cf:nth-of-type(14){--a:334deg;--d:40px;--s:-210deg;--c:#2ecc71;--dl:.64s}
+.ok.go .ok-c{animation:ok-c .6s cubic-bezier(.6,0,.2,1) both}
+.ok.go .ok-t{animation:ok-t .35s .5s cubic-bezier(.6,0,.2,1) both}
+.ok.go svg{animation:ok-pop .45s .62s ease-out both}
+.ok.go:before{animation:ok-ring .8s .55s ease-out both}
+.ok.go .cf{animation:ok-cf 1s cubic-bezier(.15,.75,.3,1) var(--dl,.6s) both}
+@keyframes ok-c{from{stroke-dashoffset:1;fill:rgba(46,204,113,0)}to{stroke-dashoffset:0}}
+@keyframes ok-t{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+@keyframes ok-pop{0%{transform:scale(1)}50%{transform:scale(1.14)}100%{transform:scale(1)}}
+@keyframes ok-ring{0%{opacity:.7;transform:scale(1)}100%{opacity:0;transform:scale(1.9)}}
+@keyframes ok-cf{0%{opacity:1;transform:rotate(var(--a)) translateY(-26px) scale(.7)}70%{opacity:1}100%{opacity:0;transform:rotate(var(--a)) translateY(calc(var(--d)*-1)) rotate(var(--s)) scale(1)}}
